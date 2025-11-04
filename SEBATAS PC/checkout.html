@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - SEBATAS PC</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/checkout.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <h1>SEBATAS PC</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#products">Products</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Checkout Process -->
+    <div class="checkout-container">
+        <!-- Progress Bar -->
+        <div class="checkout-progress">
+            <div class="progress-step active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-label">Shipping</div>
+            </div>
+            <div class="progress-step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-label">Payment</div>
+            </div>
+            <div class="progress-step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-label">Review</div>
+            </div>
+        </div>
+
+        <!-- Checkout Forms -->
+        <div class="checkout-content">
+            <!-- Shipping Information Form -->
+            <form id="shipping-form" class="checkout-form active">
+                <h2>Shipping Information</h2>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="first-name">First Name</label>
+                        <input type="text" id="first-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name">Last Name</label>
+                        <input type="text" id="last-name" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="address">Street Address</label>
+                        <input type="text" id="address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State/Province</label>
+                        <input type="text" id="state" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="zip">ZIP/Postal Code</label>
+                        <input type="text" id="zip" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select id="country" required>
+                            <option value="">Select Country</option>
+                            <option value="ID">Indonesia</option>
+                            <option value="SG">Singapore</option>
+                            <option value="MY">Malaysia</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <a href="cart.html" class="back-btn">
+                        <i class="fas fa-arrow-left"></i> Back to Cart
+                    </a>
+                    <button type="submit" class="next-btn">
+                        Continue to Payment <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Payment Method Form -->
+            <form id="payment-form" class="checkout-form">
+                <h2>Payment Method</h2>
+
+                <div class="payment-methods">
+                    <div class="payment-method">
+                        <input type="radio" name="payment" id="credit-card" value="credit-card" checked>
+                        <label for="credit-card">
+                            <i class="fas fa-credit-card"></i>
+                            Credit/Debit Card
+                        </label>
+                    </div>
+                    <div class="payment-method">
+                        <input type="radio" name="payment" id="paypal" value="paypal">
+                        <label for="paypal">
+                            <i class="fab fa-paypal"></i>
+                            PayPal
+                        </label>
+                    </div>
+                    <div class="payment-method">
+                        <input type="radio" name="payment" id="bank-transfer" value="bank-transfer">
+                        <label for="bank-transfer">
+                            <i class="fas fa-university"></i>
+                            Bank Transfer
+                        </label>
+                    </div>
+                </div>
+
+                <div id="credit-card-form" class="payment-details">
+                    <div class="form-group">
+                        <label for="card-number">Card Number</label>
+                        <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+                    </div>
+                    <div class="form-group">
+                        <label for="card-name">Name on Card</label>
+                        <input type="text" id="card-name">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expiry">Expiry Date</label>
+                            <input type="text" id="expiry" placeholder="MM/YY">
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" placeholder="123">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="back-btn" onclick="previousStep()">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button type="submit" class="next-btn">
+                        Review Order <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Order Review -->
+            <div id="order-review" class="checkout-form">
+                <h2>Review Your Order</h2>
+
+                <div class="review-sections">
+                    <div class="review-section">
+                        <h3>Shipping Address</h3>
+                        <div id="review-shipping-address"></div>
+                        <button class="edit-btn" onclick="editStep(1)">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                    </div>
+
+                    <div class="review-section">
+                        <h3>Payment Method</h3>
+                        <div id="review-payment-method"></div>
+                        <button class="edit-btn" onclick="editStep(2)">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                    </div>
+
+                    <div class="review-section">
+                        <h3>Order Summary</h3>
+                        <div id="review-order-items"></div>
+                    </div>
+                </div>
+
+                <div class="order-total">
+                    <div class="total-row">
+                        <span>Subtotal</span>
+                        <span id="review-subtotal"></span>
+                    </div>
+                    <div class="total-row">
+                        <span>Shipping</span>
+                        <span id="review-shipping"></span>
+                    </div>
+                    <div class="total-row">
+                        <span>Tax</span>
+                        <span id="review-tax"></span>
+                    </div>
+                    <div class="total-row grand-total">
+                        <span>Total</span>
+                        <span id="review-total"></span>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="back-btn" onclick="previousStep()">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button type="button" class="place-order-btn" onclick="placeOrder()">
+                        Place Order <i class="fas fa-check"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>SEBATAS PC is your trusted source for high-quality computer parts and electronics.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#products">Products</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@sebataspc.com</p>
+                <p>Phone: (123) 456-7890</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 SEBATAS PC. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/checkout.js"></script>
+</body>
+</html>

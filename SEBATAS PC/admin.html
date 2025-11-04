@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - SEBATAS PC</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="admin-body">
+    <!-- Admin Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <h1>SEBATAS PC</h1>
+            <p>Admin Panel</p>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="#dashboard" class="nav-item active" data-page="dashboard">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="#products" class="nav-item" data-page="products">
+                <i class="fas fa-box"></i> Products
+            </a>
+            <a href="#orders" class="nav-item" data-page="orders">
+                <i class="fas fa-shopping-cart"></i> Orders
+            </a>
+            <a href="#customers" class="nav-item" data-page="customers">
+                <i class="fas fa-users"></i> Customers
+            </a>
+            <a href="#analytics" class="nav-item" data-page="analytics">
+                <i class="fas fa-chart-line"></i> Analytics
+            </a>
+            <a href="#settings" class="nav-item" data-page="settings">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="#" class="logout-btn" onclick="handleLogout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="admin-main">
+        <!-- Top Bar -->
+        <div class="admin-topbar">
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="topbar-right">
+                <div class="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">3</span>
+                </div>
+                <div class="admin-profile">
+                    <img src="assets/admin-avatar.jpg" alt="Admin">
+                    <span>Admin User</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div class="admin-content">
+            <!-- Dashboard Overview -->
+            <div class="page-content active" id="dashboard-page">
+                <h2>Dashboard Overview</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Orders</h3>
+                            <p class="stat-value">256</p>
+                            <p class="stat-change positive">+12% from last month</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Revenue</h3>
+                            <p class="stat-value">$52,489</p>
+                            <p class="stat-change positive">+8% from last month</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Customers</h3>
+                            <p class="stat-value">1,245</p>
+                            <p class="stat-change positive">+5% from last month</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Products</h3>
+                            <p class="stat-value">384</p>
+                            <p class="stat-change negative">-2% from last month</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Recent Orders -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Recent Orders</h3>
+                            <a href="#orders" class="view-all">View All</a>
+                        </div>
+                        <div class="card-content">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer</th>
+                                        <th>Product</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Orders will be dynamically populated -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Sales Chart -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Sales Analytics</h3>
+                            <select class="time-range">
+                                <option value="week">This Week</option>
+                                <option value="month">This Month</option>
+                                <option value="year">This Year</option>
+                            </select>
+                        </div>
+                        <div class="card-content">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Page -->
+            <div class="page-content" id="products-page">
+                <div class="page-header">
+                    <h2>Product Management</h2>
+                    <button class="add-btn" onclick="openAddProductModal()">
+                        <i class="fas fa-plus"></i> Add Product
+                    </button>
+                </div>
+
+                <div class="filters">
+                    <select id="category-filter">
+                        <option value="">All Categories</option>
+                        <option value="laptops">Laptops</option>
+                        <option value="gpus">GPUs</option>
+                        <option value="monitors">Monitors</option>
+                        <option value="accessories">Accessories</option>
+                    </select>
+                    <select id="status-filter">
+                        <option value="">All Status</option>
+                        <option value="in-stock">In Stock</option>
+                        <option value="low-stock">Low Stock</option>
+                        <option value="out-of-stock">Out of Stock</option>
+                    </select>
+                    <input type="text" placeholder="Search products...">
+                </div>
+
+                <div class="products-grid">
+                    <!-- Products will be dynamically populated -->
+                </div>
+            </div>
+
+            <!-- Orders Page -->
+            <div class="page-content" id="orders-page">
+                <h2>Order Management</h2>
+                
+                <div class="filters">
+                    <select id="order-status-filter">
+                        <option value="">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="processing">Processing</option>
+                        <option value="shipped">Shipped</option>
+                        <option value="delivered">Delivered</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                    <input type="date" id="date-filter">
+                    <input type="text" placeholder="Search orders...">
+                </div>
+
+                <div class="orders-table">
+                    <!-- Orders will be dynamically populated -->
+                </div>
+            </div>
+
+            <!-- Customers Page -->
+            <div class="page-content" id="customers-page">
+                <h2>Customer Management</h2>
+                
+                <div class="filters">
+                    <select id="customer-type-filter">
+                        <option value="">All Types</option>
+                        <option value="new">New</option>
+                        <option value="regular">Regular</option>
+                        <option value="vip">VIP</option>
+                    </select>
+                    <input type="text" placeholder="Search customers...">
+                </div>
+
+                <div class="customers-table">
+                    <!-- Customers will be dynamically populated -->
+                </div>
+            </div>
+
+            <!-- Analytics Page -->
+            <div class="page-content" id="analytics-page">
+                <h2>Analytics & Reports</h2>
+                
+                <div class="analytics-grid">
+                    <!-- Analytics charts and reports will be populated -->
+                </div>
+            </div>
+
+            <!-- Settings Page -->
+            <div class="page-content" id="settings-page">
+                <h2>Settings</h2>
+                
+                <div class="settings-grid">
+                    <!-- Settings forms will be populated -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Product Modal -->
+    <div class="modal" id="add-product-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Product</h3>
+                <button class="close-btn" onclick="closeAddProductModal()">×</button>
+            </div>
+            <form id="add-product-form">
+                <div class="form-group">
+                    <label for="product-name">Product Name</label>
+                    <input type="text" id="product-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-category">Category</label>
+                    <select id="product-category" required>
+                        <option value="">Select Category</option>
+                        <option value="laptops">Laptops</option>
+                        <option value="gpus">GPUs</option>
+                        <option value="monitors">Monitors</option>
+                        <option value="accessories">Accessories</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="product-price">Price</label>
+                        <input type="number" id="product-price" min="0" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-stock">Stock</label>
+                        <input type="number" id="product-stock" min="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="product-description">Description</label>
+                    <textarea id="product-description" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="product-image">Product Image</label>
+                    <input type="file" id="product-image" accept="image/*" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" onclick="closeAddProductModal()">Cancel</button>
+                    <button type="submit">Add Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
